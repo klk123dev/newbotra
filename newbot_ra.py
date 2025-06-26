@@ -1,6 +1,6 @@
 import requests # type: ignore
 from telegram import Bot, Update # type: ignore
-from telegram.ext import Updater, CommandHandler, MessageHandler, Filters # type: ignore
+from telegram.ext import Updater, CommandHandler, MessageHandler, filters # type: ignore
 import threading
 import time
 
