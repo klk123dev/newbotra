@@ -1,6 +1,6 @@
 import requests # type: ignore
 from telegram import Bot, Update # type: ignore
-from telegram.ext import Updater, CommandHandler, MessageHandler, filters # type: ignore
+from telegram.ext import Updater, CommandHandler, MessageHandler, filters, CallbackContext # type: ignore
 import threading
 import time
 
@@ -12,7 +12,7 @@ bot = Bot(token=TOKEN)
 monitored_urls = {}  # Diccionario para guardar URLs a monitorear
 
 # --- COMANDOS DEL BOT ---
-def start(update: Update, context):
+def start(update: Update, context: CallbackContext):
     update.message.reply_text(
         "🎟️ **Bienvenido a TicketHunter**\n\n"
         "Envíame el link de un evento SOLD OUT y lo monitorearé cada 3 segundos.\n"
@@ -71,6 +71,7 @@ def check_availability(chat_id, url):
 # --- INICIAR BOT ---
 updater = Updater(token=TOKEN, use_context=True)
 updater.dispatcher.add_handler(CommandHandler("start", start))
+updater.dispatcher.add_handler(MessageHandler(filters.TEXT, otro_metodo))
 updater.dispatcher.add_handler(CommandHandler("status", status))
 updater.dispatcher.add_handler(CommandHandler("monitor", monitor))
 updater.dispatcher.add_handler(CommandHandler("stop", stop))
